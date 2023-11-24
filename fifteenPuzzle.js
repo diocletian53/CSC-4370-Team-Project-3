@@ -1,3 +1,18 @@
+/* ------EXTRA FEATURES------------
+End-of-game notification: Provide some sort of visual notification when the game has been won;
+that is, when the tiles have been rearranged into their original order
+
+Multiple backgrounds: Provide several background images (at least 4) to choose from.
+
+
+Please Grade This Option: 
+Different puzzle sizes: Place a control on the board to allow the game to be broken apart in other
+sizes besides 4x4, such as 3x3, 6x6, 8x8, 10x10 etc. 
+
+Cheat button: This will solve and show the shuffle that was created not a static page to display
+the titles in order
+*/
+
 var moves = 0;
 var table;
 var rows;
@@ -5,6 +20,7 @@ var columns;
 var textMoves;
 var arrayForBoard;
 var originalBoard;
+var selectedBackground = "background2.png"; // Default background
 
 function start() {
   var button = document.getElementById("newGame");
@@ -14,6 +30,13 @@ function start() {
   rows = 4;
   columns = 4;
   startNewGame();
+  setTileBackground();
+
+}
+function changeBackground() {
+  var backgroundSelect = document.getElementById("backgroundSelect");
+  selectedBackground = backgroundSelect.value;
+  setTileBackground();
 }
 
 function startNewGame() {
@@ -167,7 +190,7 @@ function setTileBackground() {
     var backgroundPositionX = (originalBoard[row][col] % columns) * tileSize * -1;
     var backgroundPositionY = Math.floor(originalBoard[row][col] / columns) * tileSize * -1;
 
-    tile.style.background = 'url(background2.png) ' + backgroundPositionX + 'px ' + backgroundPositionY + 'px no-repeat';
+    tile.style.background = 'url(' + selectedBackground + ') ' + backgroundPositionX + 'px ' + backgroundPositionY + 'px no-repeat';
     tile.style.backgroundSize = columns * tileSize + 'px ' + rows * tileSize + 'px';
   });
 }
