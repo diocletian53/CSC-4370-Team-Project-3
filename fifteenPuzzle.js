@@ -19,8 +19,9 @@ var rows;
 var columns;
 var textMoves;
 var arrayForBoard;
+var arrayForBoardDisplay;
 var originalBoard;
-var selectedBackground = "background2.png"; // Default background
+var selectedBackground = "background1.jpg"; // Default background
 
 function start() {
   var button = document.getElementById("newGame");
@@ -31,7 +32,6 @@ function start() {
   columns = 4;
   startNewGame();
   setTileBackground();
-
 }
 function changeBackground() {
   var backgroundSelect = document.getElementById("backgroundSelect");
@@ -47,6 +47,7 @@ function startNewGame() {
 
   originalBoard = createFixedBoard(rows, columns);
   arrayForBoard = shuffleBoard(originalBoard);
+  arrayForBoardDisplay = convertDataToDisplay(arrayForBoard);
 
   showTable();
   setTileBackground();
@@ -68,9 +69,10 @@ function createFixedBoard(rows, columns) {
 }
 
 function shuffleBoard(board) {
-  var shuffledBoard = board.slice().flat(); // Flatten and copy the original board
+  const shuffledBoard = board.slice().flat(); // Flatten and copy the original board
+  
   for (var i = shuffledBoard.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(Math.random() * (i + 1));
     [shuffledBoard[i], shuffledBoard[j]] = [shuffledBoard[j], shuffledBoard[i]]; // Swap elements
   }
   return chunkArray(shuffledBoard, columns);
@@ -79,6 +81,7 @@ function shuffleBoard(board) {
 function chunkArray(array, size) {
   var result = [];
   for (var i = 0; i < array.length; i += size) {
+    console.log("test:", array.slice(i, i + size))
     result.push(array.slice(i, i + size));
   }
   return result;
@@ -89,7 +92,8 @@ function showTable() {
   for (var i = 0; i < rows; i++) {
     outputString += "<tr>";
     for (var j = 0; j < columns; j++) {
-      if (arrayForBoard[i][j] === 0) {
+      console.log("index: ", arrayForBoardDisplay[i][j]);
+      if (arrayForBoardDisplay[i][j] === 0) {
         outputString += "<td class=\"blank\"> </td>";
       } else {
         outputString += "<td class=\"tile\" onclick=\"moveThisTile(" + i + ", " + j + ")\">" + arrayForBoard[i][j] + "</td>";
@@ -111,10 +115,7 @@ function moveThisTile(tableRow, tableColumn) {
 
   if (checkIfWinner()) {
     alert("Congratulations! You solved the puzzle in " + moves + " moves.");
-    startNewGame();
-
-
-    
+    startNewGame();    
   }
 }
 
@@ -138,10 +139,7 @@ function checkIfMoveable(rowCoordinate, columnCoordinate, direction) {
     if (arrayForBoard[newRow][newColumn] === 0) {
       arrayForBoard[newRow][newColumn] = arrayForBoard[rowCoordinate][columnCoordinate];
       arrayForBoard[rowCoordinate][columnCoordinate] = 0;
-      
-      
-      showTable();
-      setTileBackground(); // Add this line to set the background after a move
+      updateDisplayFromData();
       return true;
     }
   }
@@ -185,15 +183,33 @@ function setTileBackground() {
   var tileSize = 50;
 
   tiles.forEach(function(tile, index) {
-    var row = Math.floor(index / columns);
-    var col = index % columns;
-    var backgroundPositionX = (originalBoard[row][col] % columns) * tileSize * -1;
-    var backgroundPositionY = Math.floor(originalBoard[row][col] / columns) * tileSize * -1;
+    var tileNumber = arrayForBoardDisplay[Math.floor(index / columns)][index % columns];
+    if (tileNumber !== "") {
+      var backgroundPositionX = (tileNumber % columns) * tileSize * -1;
+      var backgroundPositionY = Math.floor(tileNumber / columns) * tileSize * -1;
 
-    tile.style.background = 'url(' + selectedBackground + ') ' + backgroundPositionX + 'px ' + backgroundPositionY + 'px no-repeat';
-    tile.style.backgroundSize = columns * tileSize + 'px ' + rows * tileSize + 'px';
+      tile.style.backgroundImage = 'url(' + selectedBackground + ')';
+      tile.style.backgroundPosition = backgroundPositionX + 'px ' + backgroundPositionY + 'px';
+      tile.innerHTML = tileNumber; // Set the tile number as innerHTML
+      // Additional styling as needed for the tiles
+    } else {
+      tile.style.backgroundImage = 'none';
+      tile.innerHTML = ""; // Clear the innerHTML for empty cell
+    }
   });
 }
+
+function convertDataToDisplay(dataBoard) {
+  var displayBoard = [];
+  for (var i = 0; i < rows; i++) {
+    displayBoard[i] = [];
+    for (var j = 0; j < columns; j++) {
+      displayBoard[i][j] = dataBoard[i][j] !== 0 ? dataBoard[i][j] : "";
+    }
+  }
+  return displayBoard;
+}
+
 function updateTileBackgrounds() {
   var tileSize = 50;
   var tiles = document.querySelectorAll('.tile img');
@@ -209,15 +225,23 @@ function updateTileBackgrounds() {
   });
 }
 
+function updateDisplayFromData() {
+  arrayForBoardDisplay = convertDataToDisplay(arrayForBoard);
+  showTable();
+  setTileBackground();
+}
+
 // Add this function to your JavaScript
 // Modify the shuffleTiles function
 // Modify the shuffleTiles function
 function shuffleTiles() {
+  originalBoard = createFixedBoard(rows, columns);
   arrayForBoard = shuffleBoard(originalBoard);
-  showTable();
-  setTileBackground(); // Add this line to set the background images after shuffling
+  arrayForBoardDisplay = convertDataToDisplay(arrayForBoard);
   moves = 0;
   textMoves.innerHTML = moves;
+  showTable();
+  setTileBackground();
 }
 
 function updateTileBackgrounds() {
@@ -238,11 +262,11 @@ function updateTileBackgrounds() {
 function cheat() {
   // Display the solution
   arrayForBoard = originalBoard;
-  showTable();
-  setTileBackground(); // Use the same logic as setTileBackground to maintain images
+  updateDisplayFromData();
   moves = 0;
   textMoves.innerHTML = moves;
 }
+
 function showWinNotification() {
   var winNotification = document.getElementById("win-notification");
   winNotification.style.display = "block";
