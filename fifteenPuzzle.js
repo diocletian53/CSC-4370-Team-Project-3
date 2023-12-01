@@ -188,8 +188,8 @@ function setTileBackground() {
     var selectedImage = selectedBackground; // Replace with your image URL
 
     image.onload = function() {
-        var imageWidth = image.width;
-        var imageHeight = image.height;
+        var imageWidth = image.width; //image.width is a built-in property of the Image class
+        var imageHeight = image.height; //image.height is a built-in property of the Image class like .length for arrays
         var tileWidth = imageWidth / columns;
         var tileHeight = imageHeight / rows;
 
@@ -238,15 +238,15 @@ function updateDisplayFromData() {
 // Add this function to your JavaScript
 // Start game function
 // Modify the shuffleTiles function
-//function shuffleTiles() {
-//  originalBoard = createFixedBoard(rows, columns);
-//  arrayForBoard = shuffleBoard(originalBoard);
-//  arrayForBoardDisplay = convertDataToDisplay(arrayForBoard);
-//  moves = 0;
-//  textMoves.innerHTML = moves;
-//  showTable();
-//  setTileBackground();
-//}
+function shuffleTiles() {
+    originalBoard = createFixedBoard(rows, columns);
+    arrayForBoard = shuffleBoard(originalBoard);
+    arrayForBoardDisplay = convertDataToDisplay(arrayForBoard);
+    moves = 0;
+    textMoves.innerHTML = moves;
+    showTable();
+    setTileBackground();
+}
 
 // Add this function to your existing JavaScript code
 function cheat() {
