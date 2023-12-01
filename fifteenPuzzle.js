@@ -181,8 +181,6 @@ function incrementMoves() {
 
 function setTileBackground() {
   var tiles = document.querySelectorAll('.tile');
-  var tileSize = 50; // Set your desired tile size here
-  var totalTiles = rows * columns;
   var image = new Image();
   var selectedImage = selectedBackground; // Replace with your image URL
 
