@@ -51,6 +51,7 @@ function startNewGame() {
 
   showTable();
   setTileBackground();
+  document.body.style.background = 'none';
 }
 
 function createFixedBoard(rows, columns) {
@@ -166,8 +167,8 @@ function checkIfWinner() {
   }
 
   if (isWinner) {
-    document.body.style.background = 'url(winner.jpg) no-repeat center center fixed';
-    document.body.style.backgroundSize = 'auto';
+    document.body.style.background = 'url(winner.jpg) no-repeat center bottom fixed';
+    document.body.style.backgroundSize = '500px';
   }
 
   return isWinner;

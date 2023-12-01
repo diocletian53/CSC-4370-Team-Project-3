@@ -26,7 +26,7 @@ body {
   color: white;
   cursor: pointer;
   font-weight: bolder;
-  font-size: large;
+  font-size: 50px;
   transition: border-color 0.3s, color 0.3s, text-decoration 0.3s, background-color 0.3s;
 }
 
