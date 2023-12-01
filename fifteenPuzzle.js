@@ -52,6 +52,7 @@ function startNewGame() {
 
     showTable();
     setTileBackground();
+    document.body.style.background = 'none';
 }
 
 function createFixedBoard(rows, columns) {
@@ -182,8 +183,8 @@ function incrementMoves() {
 
 function setTileBackground() {
     var tiles = document.querySelectorAll('.tile');
-    //var tileSize = 50; // Set your desired tile size here
-    //var totalTiles = rows * columns;
+    var tileSize = 50; // Set your desired tile size here
+    var totalTiles = rows * columns;
     var image = new Image();
     var selectedImage = selectedBackground; // Replace with your image URL
 
@@ -202,7 +203,7 @@ function setTileBackground() {
                 tile.style.backgroundImage = 'none'; // Empty space tile
                 tile.innerHTML = ''; // Clear innerHTML for empty space
             } else {
-                var backgroundPositionX = (tileNumber % columns) * tileWidth * -5;
+                var backgroundPositionX = (tileNumber % columns) * tileWidth * -1;
                 var backgroundPositionY = Math.floor(tileNumber / columns) * tileHeight * -1;
 
                 tile.style.backgroundImage = 'url(' + selectedImage + ')';
