@@ -56,7 +56,7 @@ function startNewGame() {
 
 function createFixedBoard(rows, columns) {
   var arrayForBoard = new Array(rows);
-  var count = 1;
+  var count = 0;
 
   for (var i = 0; i < rows; i++) {
     arrayForBoard[i] = new Array(columns);
@@ -64,7 +64,6 @@ function createFixedBoard(rows, columns) {
       arrayForBoard[i][j] = count++;
     }
   }
-  arrayForBoard[rows - 1][columns - 1] = 0; // Empty space (last spcace/tile)
 
   return arrayForBoard;
 }
@@ -200,7 +199,7 @@ function setTileBackground() {
         tile.style.backgroundImage = 'none'; // Empty space tile
         tile.innerHTML = ''; // Clear innerHTML for empty space
       } else {
-        var backgroundPositionX = (5-(tileNumber % columns)) * tileWidth;
+        var backgroundPositionX = (0-(tileNumber % columns)) * tileWidth;
         var backgroundPositionY = Math.floor(tileNumber / columns) * tileHeight * -1;
 
         tile.style.backgroundImage = 'url(' + selectedImage + ')';
