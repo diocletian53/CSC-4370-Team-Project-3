@@ -201,7 +201,7 @@ function setTileBackground() {
         tile.style.backgroundImage = 'none'; // Empty space tile
         tile.innerHTML = ''; // Clear innerHTML for empty space
       } else {
-        var backgroundPositionX = (tileNumber % columns) * tileWidth * -1;
+        var backgroundPositionX = (5-(tileNumber % columns)) * tileWidth;
         var backgroundPositionY = Math.floor(tileNumber / columns) * tileHeight * -1;
 
         tile.style.backgroundImage = 'url(' + selectedImage + ')';
