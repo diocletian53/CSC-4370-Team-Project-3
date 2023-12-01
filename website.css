@@ -23,8 +23,10 @@ body {
   border: 2px solid #222;
   text-align: center;
   background: 'background2.png';
-  color: #000;
+  color: white;
   cursor: pointer;
+  font-weight: bolder;
+  font-size: large;
   transition: border-color 0.3s, color 0.3s, text-decoration 0.3s, background-color 0.3s;
 }
 

@@ -137,9 +137,9 @@ function checkIfMoveable(rowCoordinate, columnCoordinate, direction) {
 
   //returns true and 
   if (newRow >= 0 && newColumn >= 0 && newRow < rows && newColumn < columns) {
-    if (arrayForBoard[newRow][newColumn] === 0) {  //check if the tile is blank (new location); actual check in this line bc 0 = empty space
+    if (arrayForBoard[newRow][newColumn] === 0) { //check if the tile is blank (new location); actual check in this line bc 0 = empty space
       arrayForBoard[newRow][newColumn] = arrayForBoard[rowCoordinate][columnCoordinate];
-      arrayForBoard[rowCoordinate][columnCoordinate] = 0; 
+      arrayForBoard[rowCoordinate][columnCoordinate] = 0;
       updateDisplayFromData();
       return true;
     }
