@@ -168,7 +168,7 @@ function checkIfWinner() {
 
   if (isWinner) {
     document.body.style.background = 'url(winner.jpg) no-repeat center bottom fixed';
-    document.body.style.backgroundSize = '500px';
+    document.body.style.backgroundSize = '350px';
   }
 
   return isWinner;
@@ -200,7 +200,11 @@ function setTileBackground() {
         tile.style.backgroundImage = 'none'; // Empty space tile
         tile.innerHTML = ''; // Clear innerHTML for empty space
       } else {
+<<<<<<< Updated upstream
         var backgroundPositionX = (5-(tileNumber % columns)) * tileWidth;
+=======
+        var backgroundPositionX = (-(tileNumber % columns)) * tileWidth;
+>>>>>>> Stashed changes
         var backgroundPositionY = Math.floor(tileNumber / columns) * tileHeight * -1;
 
         tile.style.backgroundImage = 'url(' + selectedImage + ')';
